@@ -1,0 +1,17 @@
+on:
+  [workflow_dispatch]
+
+jobs:
+  publish_images:
+    runs-on: ubuntu-latest
+    steps:
+      - name: checkout
+        uses: actions/checkout@v4
+      - name: build docker container
+        run: |
+          export APPVERSION=$(date +'%y.%m')
+          docker buildx rm mybuilder || true
+          docker buildx create --name mybuilder --bootstrap --use --platform=linux/amd64,linux/arm/v7
+          docker buildx build --push -t gottsman/ser2sock:1.55-$APPVERSION -t gottsman/ser2sock:latest --platform=linux/amd64,linux/arm/v7 .
+
+           
