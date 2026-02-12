@@ -12,7 +12,10 @@ RUN echo "ser2sock:x:1000:1000:ser2sock:/:" > /etc_passwd
 RUN apk --no-cache add \
         git \
         build-base \
-        openssl-dev
+        openssl-dev \
+        automake \ 
+        autoconf \
+        libtool
 
 RUN git clone --depth 1 --branch "v${VERSION}" https://github.com/nutechsoftware/ser2sock.git /ser2sock
 
